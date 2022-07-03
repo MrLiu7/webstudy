@@ -8,6 +8,15 @@ public class User {
     private int age;
     private Date date;
 
+    public User(String name, int age, Date date) {
+        this.name = name;
+        this.age = age;
+        this.date = date;
+    }
+
+    public User() {
+    }
+
     public String getName() {
         return name;
     }
