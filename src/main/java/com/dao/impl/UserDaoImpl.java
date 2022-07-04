@@ -26,4 +26,13 @@ public class UserDaoImpl implements UserDao {
         List<User> users = template.query(sql, new BeanPropertyRowMapper<User>(User.class));
         return users;
     }
+
+    @Override
+    public boolean addUser(User user) {
+        String sql = "insert into user values(null,'" + user.getName() + "','" +
+                user.getGender() + "'," + user.getAge() + ",'" + user.getAddress() + "','" +
+                user.getQqNumber() + "','" + user.getEmail() + "');";
+        int lines = template.update(sql);
+        return lines != 0;
+    }
 }

@@ -15,4 +15,6 @@ public interface UserService {
      * @return
      */
     public List<User> findAll();
+
+    public boolean addUser(User user);
 }

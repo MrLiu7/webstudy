@@ -10,5 +10,6 @@ import java.util.List;
  * @apiNote
  */
 public interface UserDao {
-    public List<User> findAll();
+     List<User> findAll();
+     boolean addUser(User user);
 }
