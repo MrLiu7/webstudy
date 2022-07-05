@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserDao {
      List<User> findAll();
      boolean addUser(User user);
+
+     User findUserByNameAndPassword(String name,String password);
 }

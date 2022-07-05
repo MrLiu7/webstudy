@@ -49,7 +49,7 @@
     </div>
     <div style="float: right;margin-bottom: 5px">
         <a class="btn btn-primary" href="add.jsp">添加联系人</a>
-        <a class="btn btn-primary" href="add.jsp">删除选中</a>
+        <a class="btn btn-primary" href="#">删除选中</a>
     </div>
     <table border="1" class="table table-bordered table-hover">
         <tr class="success">
@@ -63,18 +63,19 @@
             <th>邮箱</th>
             <th>操作</th>
         </tr>
+        <%--JSTL 简化html的书写--%>
         <c:forEach items="${requestScope.users}" var="user">
             <tr>
                 <td><input type="checkbox"></td>
                 <td>${user.id}</td>
                 <td>${user.name}</td>
-                <td>${user.gender}</td>
+                <td>${user.sex}</td>
                 <td>${user.age}</td>
                 <td>${user.address}</td>
-                <td>${user.qqNumber}</td>
+                <td>${user.qq}</td>
                 <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="update.html">修改</a>&nbsp;<a class="btn btn-default btn-sm"
-                                                                                        href="${pageContext.request.contextPath}/removeUserServlet">删除</a>
+                <td><a class="btn btn-default btn-sm" href="update.html">修改</a>&nbsp;
+                    <a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/removeUserServlet">删除</a>
                 </td>
             </tr>
         </c:forEach>

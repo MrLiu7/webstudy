@@ -27,4 +27,11 @@ public class UserServiceImpl implements UserService {
         UserDao addUserDao = new UserDaoImpl();
         return addUserDao.addUser(user);
     }
+
+    @Override
+    public boolean findUser(User user) {
+        //查询dao 返回User对象
+        User finUser = dao.findUserByNameAndPassword(user.getName(), user.getPassword());
+        return finUser!=null;
+    }
 }
