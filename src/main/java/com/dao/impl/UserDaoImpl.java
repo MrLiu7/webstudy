@@ -29,10 +29,23 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean addUser(User user) {
-        String sql = "insert into user values(null,'" + user.getName() + "','" +
-                user.getGender() + "'," + user.getAge() + ",'" + user.getAddress() + "','" +
-                user.getQqNumber() + "','" + user.getEmail() + "');";
+        String sql = "insert into user values(null,'" + user.getName() + "',null,'" +
+                user.getSex() + "'," + user.getAge() + ",'" + user.getAddress() + "','" +
+                user.getQq() + "','" + user.getEmail() + "');";
         int lines = template.update(sql);
         return lines != 0;
+    }
+
+    @Override
+    public User findUserByNameAndPassword(String name, String password) {
+        try {
+            String sql = "select * from user where name = ? and password = ?";
+            User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), name, password);
+            System.out.println("查找到管理员");
+            return user;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -24,10 +24,10 @@
 <body>
 <div class="container" style="width: 400px;">
     <h3 style="text-align: center;">管理员登录</h3>
-    <form action="login" method="post">
+    <form action="${pageContext.request.contextPath}/loginServlet" method="post">
         <div class="form-group">
             <label for="user">用户名：</label>
-            <input type="text" name="user" class="form-control" id="user" placeholder="请输入用户名"/>
+            <input type="text" name="name" class="form-control" id="user" placeholder="请输入用户名"/>
         </div>
 
         <div class="form-group">
@@ -50,10 +50,10 @@
     </form>
 
     <!-- 出错显示的信息框 -->
-    <div class="alert alert-warning alert-dismissible" role="alert">
+    <div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center">
         <button type="button" class="close" data-dismiss="alert">
             <span>&times;</span></button>
-        <strong>登录失败!</strong>
+        <strong>${requestScope.login_msg}</strong>
     </div>
 </div>
 </body>

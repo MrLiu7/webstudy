@@ -8,23 +8,26 @@ package com.domain;
 public class User {
     private int id;
     private String name;
-    private String gender;
+
+    private String password;
+    private String sex;
     private int age;
     private String address;
-    private String qqNumber;
+    private String qq;
     private String email;
 
     //需要空参构造
-    public User() {
-    }
 
-    public User(int id, String name, String gender, int age, String address, String qq, String email) {
+    public User() {}
+
+    public User(int id, String name, String password, String sex, int age, String address, String qq, String email) {
         this.id = id;
         this.name = name;
-        this.gender = gender;
+        this.password = password;
+        this.sex = sex;
         this.age = age;
         this.address = address;
-        this.qqNumber = qq;
+        this.qq = qq;
         this.email = email;
     }
 
@@ -44,24 +47,24 @@ public class User {
         this.name = name;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPassword() {
+        return password;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public int getAge() {
         return age;
-    }
-
-    public String getQqNumber() {
-        return qqNumber;
-    }
-
-    public void setQqNumber(String qqNumber) {
-        this.qqNumber = qqNumber;
     }
 
     public void setAge(int age) {
@@ -76,7 +79,13 @@ public class User {
         this.address = address;
     }
 
+    public String getQq() {
+        return qq;
+    }
 
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
 
     public String getEmail() {
         return email;
@@ -91,10 +100,11 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
+                ", password='" + password + '\'' +
+                ", sex='" + sex + '\'' +
                 ", age=" + age +
                 ", address='" + address + '\'' +
-                ", qqNumber='" + qqNumber + '\'' +
+                ", qq='" + qq + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
