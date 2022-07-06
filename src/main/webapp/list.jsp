@@ -71,17 +71,17 @@
             <th>操作</th>
         </tr>
         <%--JSTL 简化html的书写--%>
-        <c:forEach items="${requestScope.users}" var="user">
+        <c:forEach items="${requestScope.users}" var="user" varStatus="s">
             <tr>
                 <td><input type="checkbox"></td>
-                <td>${user.id}</td>
+                <td>${s.count}</td>
                 <td>${user.name}</td>
                 <td>${user.sex}</td>
                 <td>${user.age}</td>
                 <td>${user.address}</td>
                 <td>${user.qq}</td>
                 <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="update.jsp">修改</a>&nbsp;
+                <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/findUserServlet?id=${user.id}">修改</a>&nbsp;
                     <a class="btn btn-default btn-sm" href="javascript:delUser(${user.id})">删除</a>
                 </td>
             </tr>

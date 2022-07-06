@@ -48,6 +48,7 @@
                 <option value="广东">广东</option>
                 <option value="广西">广西</option>
                 <option value="湖南">湖南</option>
+                <option value="湖北">湖北</option>
             </select>
         </div>
 

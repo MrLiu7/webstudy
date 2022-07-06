@@ -41,7 +41,6 @@ public class UserDaoImpl implements UserDao {
         try {
             String sql = "select * from user where name = ? and password = ?";
             User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), name, password);
-            System.out.println("查找到管理员");
             return user;
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,5 +52,22 @@ public class UserDaoImpl implements UserDao {
     public int deleteUserByID(int id) {
         String sql = "DELETE FROM user WHERE id = ?";
         return template.update(sql, id);
+    }
+
+    /**
+     * 通过id查询数据库
+     * @param id 整型，用户id
+     * @return User 对象
+     */
+    @Override
+    public User findUserByID(int id) {
+        String sql = "select * from user where id = ?";
+        return template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), id);
+    }
+
+    @Override
+    public int updateUser(User user) {
+        String sql = "update user set name = ?,password = '2677ljj',sex = ?,age = ?,address = ?,qq = ?,email = ? where id = ?";
+        return template.update(sql,user.getName(),user.getSex(),user.getAge(),user.getAddress(),user.getQq(),user.getEmail(),user.getId());
     }
 }

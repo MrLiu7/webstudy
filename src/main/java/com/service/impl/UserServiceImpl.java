@@ -39,4 +39,15 @@ public class UserServiceImpl implements UserService {
     public boolean deleteUser(String id) {
         return dao.deleteUserByID(Integer.parseInt(id)) != 0;
     }
+
+    @Override
+    public User findUserByID(String id) {
+        return dao.findUserByID(Integer.parseInt(id));
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        //调用dao查询数据库
+        return dao.updateUser(user)!=0;
+    }
 }

@@ -21,4 +21,8 @@ public interface UserService {
     public boolean findUser(User user);
 
     boolean deleteUser(String id);
+
+    User findUserByID(String id);
+
+    boolean updateUser(User user);
 }

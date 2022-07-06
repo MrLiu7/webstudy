@@ -1,4 +1,5 @@
 <%@page contentType="text/html; charset=utf-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <!-- 网页使用的语言 -->
 <html lang="zh-CN">
@@ -19,43 +20,72 @@
 <body>
 <div class="container" style="width: 400px;">
     <h3 style="text-align: center;">修改联系人</h3>
-    <form action="" method="post">
+    <form action="${pageContext.request.contextPath}/updateUserServlet" method="post">
+        <%--隐藏的id，以便数据提交的时候方便后台操作数据库--%>
+        <input type="hidden" name="id" value="${requestScope.user.id}">
+
         <div class="form-group">
             <label for="name">姓名：</label>
-            <input type="text" class="form-control" id="name" name="name" readonly="readonly" placeholder="请输入姓名"/>
+            <input type="text" class="form-control" id="name" name="name" readonly="readonly"
+                   value="${requestScope.user.name}"/>
         </div>
 
         <div class="form-group">
             <label>性别：</label>
-            <input type="radio" name="sex" value="男"/>男
-            <input type="radio" name="sex" value="女"/>女
+            <c:if test="${requestScope.user.sex=='男'}">
+                <input type="radio" name="sex" value="男" checked="checked"/>男
+                <input type="radio" name="sex" value="女"/>女
+            </c:if>
+            <c:if test="${requestScope.user.sex=='女'}">
+                <input type="radio" name="sex" value="男"/>男
+                <input type="radio" name="sex" value="女" checked="checked"/>女
+            </c:if>
         </div>
 
         <div class="form-group">
             <label for="age">年龄：</label>
-            <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄"/>
+            <input type="text" class="form-control" id="age" name="age" value="${requestScope.user.age}"/>
         </div>
 
         <div class="form-group">
             <label for="address">籍贯：</label>
             <!--创建选择列表-->
             <select name="address" id="address" class="form-control">
-                <option value="广东">广东</option>
-                <option value="广西">广西</option>
-                <option value="湖南">湖南</option>
-                <option value="湖北">湖北</option>
-                <option value="广东">广东</option>
+                <c:if test="${requestScope.user.address=='广东'}">
+                    <option value="广东" selected="selected">广东</option>
+                    <option value="广西">广西</option>
+                    <option value="湖南">湖南</option>
+                    <option value="湖北">湖北</option>
+                </c:if>
+                <c:if test="${requestScope.user.address=='广西'}">
+                    <option value="广东">广东</option>
+                    <option value="广西" selected="selected">广西</option>
+                    <option value="湖南">湖南</option>
+                    <option value="湖北">湖北</option>
+                </c:if>
+                <c:if test="${requestScope.user.address=='湖南'}">
+                    <option value="广东">广东</option>
+                    <option value="广西">广西</option>
+                    <option value="湖南" selected="selected">湖南</option>
+                    <option value="湖北">湖北</option>
+                </c:if>
+                <c:if test="${requestScope.user.address=='湖北'}">
+                    <option value="广东">广东</option>
+                    <option value="广西">广西</option>
+                    <option value="湖南">湖南</option>
+                    <option value="湖北" selected="selected">湖北</option>
+                </c:if>
             </select>
         </div>
 
         <div class="form-group">
             <label for="qq">QQ：</label>
-            <input type="text" id="qq" class="form-control" name="qq" placeholder="请输入QQ号码"/>
+            <input type="text" id="qq" class="form-control" name="qq" value="${requestScope.user.qq}"/>
         </div>
 
         <div class="form-group">
             <label for="email">Email：</label>
-            <input type="text" id="email" class="form-control" name="email" placeholder="请输入邮箱地址"/>
+            <input type="text" id="email" class="form-control" name="email" value="${requestScope.user.email}"/>
         </div>
 
         <div class="form-group" style="text-align: center">
