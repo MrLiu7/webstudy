@@ -1,8 +1,9 @@
+<%@page contentType="text/html; charset=utf-8" language="java" %>
 <!DOCTYPE html>
 <!-- 网页使用的语言 -->
 <html lang="zh-CN">
 <head>
-    <base href="<%=basePath%>"/>
+    <%--<base href="<%=basePath%>"/>--%>
     <!-- 指定字符集 -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

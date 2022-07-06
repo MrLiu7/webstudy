@@ -14,15 +14,15 @@ import java.util.List;
  * @apiNote
  */
 public class UserDaoImpl implements UserDao {
-    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+    private final JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
     @Override
     public List<User> findAll() {
-        //使用JDBC操作数据库
+        // 使用JDBC操作数据库
         String sql = "select * from user";
-        //此处User.class 需要让User有空构造函数 否则或报错
-        //错误：Is it an abstract class?; nested exception is java.lang.InstantiationException
-        //这种方法需要保证数据库字段名称和类的属性名称保持一致
+        // 此处User.class 需要让User有空构造函数 否则或报错
+        // 错误：Is it an abstract class?; nested exception is java.lang.InstantiationException
+        // 这种方法需要保证数据库字段名称和类的属性名称保持一致
         List<User> users = template.query(sql, new BeanPropertyRowMapper<User>(User.class));
         return users;
     }
@@ -43,9 +43,15 @@ public class UserDaoImpl implements UserDao {
             User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), name, password);
             System.out.println("查找到管理员");
             return user;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public int deleteUserByID(int id) {
+        String sql = "DELETE FROM user WHERE id = ?";
+        return template.update(sql, id);
     }
 }

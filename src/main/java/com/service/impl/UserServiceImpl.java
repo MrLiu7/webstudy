@@ -17,21 +17,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        //调用dao查询 返回查询集合
+        // 调用dao查询 返回查询集合
         return dao.findAll();
     }
 
     @Override
     public boolean addUser(User user) {
-        //执行添加操作
+        // 执行添加操作
         UserDao addUserDao = new UserDaoImpl();
         return addUserDao.addUser(user);
     }
 
     @Override
     public boolean findUser(User user) {
-        //查询dao 返回User对象
+        // 查询dao 返回User对象
         User finUser = dao.findUserByNameAndPassword(user.getName(), user.getPassword());
-        return finUser!=null;
+        return finUser != null;
+    }
+
+    @Override
+    public boolean deleteUser(String id) {
+        return dao.deleteUserByID(Integer.parseInt(id)) != 0;
     }
 }

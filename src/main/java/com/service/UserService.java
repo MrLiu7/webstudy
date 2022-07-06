@@ -19,4 +19,6 @@ public interface UserService {
     public boolean addUser(User user);
 
     public boolean findUser(User user);
+
+    boolean deleteUser(String id);
 }
