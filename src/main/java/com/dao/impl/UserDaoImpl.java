@@ -29,10 +29,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean addUser(User user) {
-        String sql = "insert into user values(null,'" + user.getName() + "',null,'" +
+        /*String sql = "insert into user values(null,'" + user.getName() + "',null,'" +
                 user.getSex() + "'," + user.getAge() + ",'" + user.getAddress() + "','" +
-                user.getQq() + "','" + user.getEmail() + "');";
-        int lines = template.update(sql);
+                user.getQq() + "','" + user.getEmail() + "');";*/
+        String sql = "insert into user values(null,?,?,?,?,?,?,?)";
+        int lines = template.update(sql, user.getName(), user.getPassword(), user.getSex(), user.getAge(), user.getAddress(), user.getQq(), user.getEmail());
         return lines != 0;
     }
 
@@ -56,6 +57,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * 通过id查询数据库
+     *
      * @param id 整型，用户id
      * @return User 对象
      */
@@ -68,6 +70,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int updateUser(User user) {
         String sql = "update user set name = ?,password = '2677ljj',sex = ?,age = ?,address = ?,qq = ?,email = ? where id = ?";
-        return template.update(sql,user.getName(),user.getSex(),user.getAge(),user.getAddress(),user.getQq(),user.getEmail(),user.getId());
+        return template.update(sql, user.getName(), user.getSex(), user.getAge(), user.getAddress(), user.getQq(), user.getEmail(), user.getId());
     }
 }

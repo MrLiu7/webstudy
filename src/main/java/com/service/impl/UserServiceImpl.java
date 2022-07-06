@@ -47,7 +47,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updateUser(User user) {
-        //调用dao查询数据库
-        return dao.updateUser(user)!=0;
+        // 调用dao查询数据库
+        return dao.updateUser(user) != 0;
+    }
+
+    @Override
+    public void deleteUsers(String[] userIds) {
+        for (String userId : userIds) {
+            // 调用dao的删除操作
+            dao.deleteUserByID(Integer.parseInt(userId));
+        }
     }
 }

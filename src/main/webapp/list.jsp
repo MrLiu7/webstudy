@@ -32,6 +32,17 @@
                 location.href = "${pageContext.request.contextPath}/removeUserServlet?id=" + id;
             }
         }
+
+        /*当点击删除的时候执行下面的代码*/
+        window.onload = function () {
+            //先获取到按钮
+            let delButton = document.getElementById("delChoose");
+            //当该按钮被点击执行下面的方法
+            delButton.onclick = function () {
+                //获取当前页面的id为idChecks的表单，执行提交方法
+                document.getElementById("idChecks").submit();
+            }
+        }
     </script>
 </head>
 <body>
@@ -56,39 +67,44 @@
     </div>
     <div style="float: right;margin-bottom: 5px">
         <a class="btn btn-primary" href="add.jsp">添加联系人</a>
-        <a class="btn btn-primary" href="#">删除选中</a>
+        <a class="btn btn-primary" href="javascript:void(0);" id="delChoose">删除选中</a>
     </div>
-    <table border="1" class="table table-bordered table-hover">
-        <tr class="success">
-            <th><input type="checkbox"></th>
-            <th>编号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>籍贯</th>
-            <th>QQ</th>
-            <th>邮箱</th>
-            <th>操作</th>
-        </tr>
-        <%--JSTL 简化html的书写--%>
-        <c:forEach items="${requestScope.users}" var="user" varStatus="s">
-            <tr>
-                <td><input type="checkbox"></td>
-                <td>${s.count}</td>
-                <td>${user.name}</td>
-                <td>${user.sex}</td>
-                <td>${user.age}</td>
-                <td>${user.address}</td>
-                <td>${user.qq}</td>
-                <td>${user.email}</td>
-                <td><a class="btn btn-default btn-sm" href="${pageContext.request.contextPath}/findUserServlet?id=${user.id}">修改</a>&nbsp;
-                    <a class="btn btn-default btn-sm" href="javascript:delUser(${user.id})">删除</a>
-                </td>
+
+    <%--这里需要多选，将多条数据提交到服务器，可以使用表单提交--%>
+    <form action="${pageContext.request.contextPath}/deleteUsersServlet" id="idChecks">
+        <table border="1" class="table table-bordered table-hover">
+            <tr class="success">
+                <th><input type="checkbox"></th>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>籍贯</th>
+                <th>QQ</th>
+                <th>邮箱</th>
+                <th>操作</th>
             </tr>
-        </c:forEach>
+            <%--JSTL 简化html的书写--%>
+            <c:forEach items="${requestScope.users}" var="user" varStatus="s">
+                <tr>
+                    <%--在表单中想被提交，那么就需要赋值name，复选框不给出value值，默认值为on或者是off--%>
+                    <td><input type="checkbox" name="userId" value="${user.id}"></td>
+                    <td>${s.count}</td>
+                    <td>${user.name}</td>
+                    <td>${user.sex}</td>
+                    <td>${user.age}</td>
+                    <td>${user.address}</td>
+                    <td>${user.qq}</td>
+                    <td>${user.email}</td>
+                    <td><a class="btn btn-default btn-sm"
+                           href="${pageContext.request.contextPath}/findUserServlet?id=${user.id}">修改</a>&nbsp;
+                        <a class="btn btn-default btn-sm" href="javascript:delUser(${user.id})">删除</a>
+                    </td>
+                </tr>
+            </c:forEach>
 
-    </table>
-
+        </table>
+    </form>
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li>
