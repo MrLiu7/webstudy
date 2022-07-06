@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * 该类用于生成验证码
+ */
 @WebServlet("/verCodeServlet")
 public class VerCodeServlet extends HttpServlet {
     @Override

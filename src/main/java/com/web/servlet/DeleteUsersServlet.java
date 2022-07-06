@@ -7,8 +7,8 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/removeUserServlet")
-public class RemoveUserServlet extends HttpServlet {
+@WebServlet("/deleteUsersServlet")
+public class DeleteUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doPost(request, response);
@@ -16,7 +16,11 @@ public class RemoveUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean success = new UserServiceImpl().deleteUser(request.getParameter("id"));
+        // 获取前端的多条选择，这些选择是具体用户的id数值
+        String[] userIds = request.getParameterValues("userId");
+        // 将这些id数值提交到service中进行处理
+        new UserServiceImpl().deleteUsers(userIds);
+        // 转发到查询所有数据的servlet
         request.getRequestDispatcher("/userListServlet").forward(request, response);
     }
 }
