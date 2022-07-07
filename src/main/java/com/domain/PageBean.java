@@ -4,24 +4,27 @@ import java.util.List;
 
 /**
  * 分页查询的封装类
+ *
  * @param <T>
  */
 public class PageBean<T> {
-    private int totalCount;//总记录条数
-    private int totalPage;//总页码
-    private int currentPage;//第几页
-    private int rows;//每页展示的条数
-    List<T> list;//查询到的数据集合
+    private int totalCount;// 总记录条数
+    private int totalPage;// 总页码
+    private int currentPage;// 第几页
+    private int rows;// 每页展示的条数
+    List<T> list;// 查询到的数据集合
+    User user;// 条件查询数据封装对象
 
     public PageBean() {
     }
 
-    public PageBean(int totalCount, int totalPage, int currentPage, int rows, List<T> list) {
+    public PageBean(int totalCount, int totalPage, int currentPage, int rows, List<T> list, User user) {
         this.totalCount = totalCount;
         this.totalPage = totalPage;
         this.currentPage = currentPage;
         this.rows = rows;
         this.list = list;
+        this.user = user;
     }
 
     public int getTotalCount() {
@@ -62,6 +65,14 @@ public class PageBean<T> {
 
     public void setList(List<T> list) {
         this.list = list;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

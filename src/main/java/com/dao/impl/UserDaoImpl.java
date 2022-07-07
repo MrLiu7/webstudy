@@ -6,7 +6,6 @@ import com.util.JDBCUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,24 +74,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findUserByPage(int start, int rows) {
-        String sql = "select * from user limit ?,?";
-        return template.query(sql, new BeanPropertyRowMapper<>(User.class), start, rows);
-    }
-
-    /**
-     * 查询数据库中的所有记录
-     *
-     * @return
-     */
-    @Override
-    public int findAllRecord() {
-        String sql = "select count(*) from user";
-        return template.queryForObject(sql, Integer.class);
-    }
-
-    @Override
-    public List<User> vagueFindUserByPage(String name, String address, String email, int start, int rows) {
+    public List<User> findUserByPage(User user, int start, int rows) {
+        //String sql = "select * from user limit ?,?";
+        String name = user.getName();
+        String address = user.getAddress();
+        String email = user.getEmail();
         String sql = "select * from user where 1 = 1 ";
         StringBuilder sb = new StringBuilder(sql);
         if (!(name == null || "".equals(name))) {
@@ -106,5 +92,31 @@ public class UserDaoImpl implements UserDao {
         }
         sb.append("limit ?,?");
         return template.query(sb.toString(), new BeanPropertyRowMapper<>(User.class), start, rows);
+    }
+
+    /**
+     * 查询数据库中的所有记录
+     *
+     * @return
+     */
+    @Override
+    public int findAllRecord(User user) {
+        String name = user.getName();
+        String address = user.getAddress();
+        String email = user.getEmail();
+        String sql = "select count(*) from user where 1 = 1 ";
+        StringBuilder sb = new StringBuilder(sql);
+        if (!(name == null || "".equals(name))) {
+            sb.append("and name like '%").append(name).append("%' ");
+        }
+        if (!(address == null || "".equals(address))) {
+            sb.append("and address like '%").append(address).append("%' ");
+        }
+        if (!(email == null || "".equals(email))) {
+            sb.append("and email like 'email").append(email).append("%' ");
+        }
+        //sb.append("limit ?,?");
+        //System.out.println(sb.toString());
+        return template.queryForObject(sb.toString(),Integer.class);
     }
 }

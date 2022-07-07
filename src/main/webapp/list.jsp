@@ -33,6 +33,12 @@
             }
         }
 
+        function findByPageNum(pageNum) {
+            let pagePush = document.getElementById("conditionQuery");
+            pagePush.action = pagePush.action + "?findPage=" + pageNum;
+            pagePush.submit();
+        }
+
         /*当点击批量删除的时候执行下面的代码*/
         window.onload = function () {
             //先获取到按钮
@@ -59,18 +65,22 @@
 <div class="container">
     <h3 style="text-align: center">用户信息列表</h3>
     <div style="float: left;border-bottom: 5px">
-        <form class="form-inline" action="${pageContext.request.contextPath}/findUserByPageServlet" method="post">
+        <form class="form-inline" id="conditionQuery" action="${pageContext.request.contextPath}/findUserByPageServlet"
+              method="post">
             <div class="form-group">
                 <label for="exampleInputName2">姓名</label>
-                <input type="text" name="name" class="form-control" id="exampleInputName2" value="null">
+                <input type="text" name="name" class="form-control" id="exampleInputName2"
+                       value="${requestScope.pageBean.user.name}">
             </div>
             <div class="form-group">
                 <label for="exampleInputName3">籍贯</label>
-                <input type="text" name="address" class="form-control" id="exampleInputName3" value="null">
+                <input type="text" name="address" class="form-control" id="exampleInputName3"
+                       value="${requestScope.pageBean.user.address}">
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail2">邮箱</label>
-                <input type="email"  name="email" class="form-control" id="exampleInputEmail2" value="null">
+                <input type="email" name="email" class="form-control" id="exampleInputEmail2"
+                       value="${requestScope.pageBean.user.email}">
             </div>
             <button type="submit" class="btn btn-default">查询</button>
         </form>
@@ -121,7 +131,7 @@
             <li class="disabled"></c:if>
                 <c:if test="${requestScope.pageBean.currentPage!=1}">
             <li></c:if>
-                <a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=1" aria-label="Previous">
+                <a href="javascript:findByPageNum(1)" aria-label="Previous">
                     <span aria-hidden="true">第一页</span>
                 </a>
             </li>
@@ -129,84 +139,44 @@
             <li class="disabled"></c:if>
                 <c:if test="${requestScope.pageBean.currentPage!=1}">
             <li></c:if>
-                <a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${requestScope.pageBean.currentPage-1}"
+                <a href="javascript:findByPageNum(${requestScope.pageBean.currentPage-1})"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
 
-            <%--分页处理--%>
-            <c:if test="${requestScope.pageBean.currentPage>5&&requestScope.pageBean.currentPage<requestScope.pageBean.totalPage-5}">
-                <c:forEach begin="${requestScope.pageBean.currentPage-4}" end="${requestScope.pageBean.currentPage+5}"
-                           var="i">
-                    <c:if test="${requestScope.pageBean.currentPage==i}">
-                        <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet">${i}</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${requestScope.pageBean.currentPage!=i}">
-                        <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${i}">${i}</a>
-                        </li>
-                    </c:if>
-                </c:forEach></c:if>
-            <c:if test="${requestScope.pageBean.currentPage<=5 and requestScope.pageBean.totalPage>10}">
-                <c:forEach begin="1" end="10" step="1" var="i">
-                    <c:if test="${requestScope.pageBean.currentPage==i}">
-                        <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet">${i}</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${requestScope.pageBean.currentPage!=i}">
-                        <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${i}">${i}</a>
-                        </li>
-                    </c:if>
-                </c:forEach></c:if>
-                <c:if test="${requestScope.pageBean.currentPage<=5 and requestScope.pageBean.totalPage<=10}">
-                    <c:forEach begin="1" end="${requestScope.pageBean.totalPage}" step="1" var="i">
-                        <c:if test="${requestScope.pageBean.currentPage==i}">
-                            <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet">${i}</a>
-                            </li>
-                        </c:if>
-                        <c:if test="${requestScope.pageBean.currentPage!=i}">
-                            <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${i}">${i}</a>
-                            </li>
-                        </c:if>
-                    </c:forEach></c:if>
-            <c:if test="${requestScope.pageBean.currentPage>=requestScope.pageBean.totalPage-5}">
-                <c:forEach begin="${requestScope.pageBean.totalPage-9}" end="${requestScope.pageBean.totalPage}"
-                           step="1" var="i">
-                    <c:if test="${requestScope.pageBean.currentPage==i}">
-                        <li class="active"><a href="${pageContext.request.contextPath}/findUserByPageServlet">${i}</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${requestScope.pageBean.currentPage!=i}">
-                        <li><a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${i}">${i}</a>
-                        </li>
-                    </c:if>
-                </c:forEach></c:if>
+            <%--分页处理
+                一页最多显示十个分页
+            --%>
+            <c:forEach begin="${requestScope.pageLeftNum}" end="${requestScope.pageRightNum}" var="i">
+                <c:if test="${requestScope.pageBean.currentPage==i}">
+                    <li class="active"><a href="javascript:findByPageNum(${i})">${i}</a>
+                    </li>
+                </c:if>
+                <c:if test="${requestScope.pageBean.currentPage!=i}">
+                    <li><a href="javascript:findByPageNum(${i})">${i}</a>
+                    </li>
+                </c:if>
+            </c:forEach>
+
             <c:if test="${requestScope.pageBean.currentPage==requestScope.pageBean.totalPage}">
             <li class="disabled"></c:if>
-            <c:if test="${requestScope.pageBean.currentPage!=requestScope.pageBean.totalPage}">
+                <c:if test="${requestScope.pageBean.currentPage!=requestScope.pageBean.totalPage}">
             <li>
                 </c:if><a
-                    href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${requestScope.pageBean.currentPage+1}"
+                    href="javascript:findByPageNum(${requestScope.pageBean.currentPage+1})"
                     aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
             </li>
             <c:if test="${requestScope.pageBean.currentPage==requestScope.pageBean.totalPage}">
             <li class="disabled"></c:if>
-            <c:if test="${requestScope.pageBean.currentPage!=requestScope.pageBean.totalPage}">
-            <li>
-                </c:if>
-                <a href="${pageContext.request.contextPath}/findUserByPageServlet?findPage=${requestScope.pageBean.totalPage}"
-                   aria-label="Next">
-                    <span aria-hidden="true">末尾页</span>
-                </a>
+                <c:if test="${requestScope.pageBean.currentPage!=requestScope.pageBean.totalPage}">
+            <li></c:if>
+                <a href="javascript:findByPageNum(${requestScope.pageBean.totalPage})" aria-label="Next"><span
+                        aria-hidden="true">末尾页</span></a>
             </li>
-
-
-            <span style="margin-left: 20px;float: left;margin-top:15px;font-size: 10px">共${requestScope.pageBean.totalPage}页，
-                第${requestScope.pageBean.currentPage}页，
-            共查询到${requestScope.pageBean.totalCount}条数据</span>
+            <span style="margin-left: 20px;float: left;margin-top:15px;font-size: 10px">共${requestScope.pageBean.totalPage}页，第${requestScope.pageBean.currentPage}页，共查询到${requestScope.pageBean.totalCount}条数据</span>
         </ul>
     </nav>
 </div>

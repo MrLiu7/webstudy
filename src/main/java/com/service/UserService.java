@@ -4,6 +4,7 @@ import com.domain.PageBean;
 import com.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 柳继纪
@@ -59,5 +60,5 @@ public interface UserService {
      */
     void deleteUsers(String[] userIds);
 
-    PageBean<User> findUserByPage(String findPage,String rows);
+    PageBean<User> findUserByPage(Map<String, String[]> parameterMap, String _findPage, String _rows);
 }

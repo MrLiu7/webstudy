@@ -21,9 +21,7 @@ public interface UserDao {
 
     int updateUser(User user);
 
-    List<User> findUserByPage(int start, int rows);
+    List<User> findUserByPage(User user, int start, int rows);
 
-    int findAllRecord();
-
-    List<User> vagueFindUserByPage(String name, String address, String email, int start, int rows);
+    int findAllRecord(User user);
 }
