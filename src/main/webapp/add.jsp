@@ -1,4 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Arrays" %>
 <%@page contentType="text/html; charset=utf-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- HTML5文档-->
 <!DOCTYPE html>
 <!-- 网页使用的语言 -->
@@ -11,7 +15,7 @@
     <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
     width: 默认宽度与设备的宽度相同
     initial-scale: 初始的缩放比，为1:1 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>添加用户</title>
 
@@ -23,6 +27,13 @@
     <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+<%
+    String[] province = {"河北省", "山西省", "辽宁省", "吉林省", "黑龙江省", "江苏省", "浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省",
+            "湖北省", "湖南省", "广东省", "海南省", "四川省", "贵州省", "云南省", "陕西省", "甘肃省", "青海省", "台湾省", "内蒙古自治区",
+            "广西壮族自治区", "西藏自治区", "宁夏回族自治区", "新疆维吾尔自治区", "北京市", "天津市", "上海市", "重庆市", "香港特别行政区", "澳门特别行政区"};
+    List<String> provinceList = new ArrayList<>(Arrays.asList(province));
+    request.setAttribute("provinceList", provinceList);
+%>
 <div class="container">
     <center><h3>添加联系人页面</h3></center>
     <form action="${pageContext.request.contextPath}/addUserServlet" method="post">
@@ -45,10 +56,9 @@
         <div class="form-group">
             <label for="address">籍贯：</label>
             <select name="address" class="form-control" id="address">
-                <option value="广东">广东</option>
-                <option value="广西">广西</option>
-                <option value="湖南">湖南</option>
-                <option value="湖北">湖北</option>
+                <c:forEach items="${requestScope.provinceList}" var="i">
+                    <option value="${i}">${i}</option>
+                </c:forEach>
             </select>
         </div>
 

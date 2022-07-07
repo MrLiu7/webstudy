@@ -1,3 +1,6 @@
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Arrays" %>
 <%@page contentType="text/html; charset=utf-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -18,6 +21,13 @@
 
 </head>
 <body>
+<%
+    String[] province = {"河北省", "山西省", "辽宁省", "吉林省", "黑龙江省", "江苏省", "浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省",
+            "湖北省", "湖南省", "广东省", "海南省", "四川省", "贵州省", "云南省", "陕西省", "甘肃省", "青海省", "台湾省", "内蒙古自治区",
+            "广西壮族自治区", "西藏自治区", "宁夏回族自治区", "新疆维吾尔自治区", "北京市", "天津市", "上海市", "重庆市", "香港特别行政区", "澳门特别行政区"};
+    List<String> provinceList = new ArrayList<>(Arrays.asList(province));
+    request.setAttribute("provinceList", provinceList);
+%>
 <div class="container" style="width: 400px;">
     <h3 style="text-align: center;">修改联系人</h3>
     <form action="${pageContext.request.contextPath}/updateUserServlet" method="post">
@@ -51,30 +61,14 @@
             <label for="address">籍贯：</label>
             <!--创建选择列表-->
             <select name="address" id="address" class="form-control">
-                <c:if test="${requestScope.user.address=='广东'}">
-                    <option value="广东" selected="selected">广东</option>
-                    <option value="广西">广西</option>
-                    <option value="湖南">湖南</option>
-                    <option value="湖北">湖北</option>
-                </c:if>
-                <c:if test="${requestScope.user.address=='广西'}">
-                    <option value="广东">广东</option>
-                    <option value="广西" selected="selected">广西</option>
-                    <option value="湖南">湖南</option>
-                    <option value="湖北">湖北</option>
-                </c:if>
-                <c:if test="${requestScope.user.address=='湖南'}">
-                    <option value="广东">广东</option>
-                    <option value="广西">广西</option>
-                    <option value="湖南" selected="selected">湖南</option>
-                    <option value="湖北">湖北</option>
-                </c:if>
-                <c:if test="${requestScope.user.address=='湖北'}">
-                    <option value="广东">广东</option>
-                    <option value="广西">广西</option>
-                    <option value="湖南">湖南</option>
-                    <option value="湖北" selected="selected">湖北</option>
-                </c:if>
+                <c:forEach items="${requestScope.provinceList}" var="i">
+                    <c:if test="${requestScope.user.address==i}">
+                        <option value="${i}" selected="selected">${i}</option>
+                    </c:if>
+                    <c:if test="${requestScope.user.address!=i}">
+                        <option value="${i}">${i}</option>
+                    </c:if>
+                </c:forEach>
             </select>
         </div>
 
