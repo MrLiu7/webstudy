@@ -20,7 +20,7 @@
 <div align="center">
     <a
     <%--此处使用el表达式来获取虚拟路径，不要把虚拟路径写死--%>
-            href="${pageContext.request.contextPath}/userListServlet" style="text-decoration:none;font-size:33px">查询所有用户信息
+            href="${pageContext.request.contextPath}/findUserByPageServlet" style="text-decoration:none;font-size:33px">查询所有用户信息
     </a>
 </div>
 </body>

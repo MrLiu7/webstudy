@@ -44,7 +44,8 @@ public class AddUserServlet extends HttpServlet {
 
         // 如果添加成功，重定向页面 重定向到 servlet 层
         if (addSuccess) {
-            response.sendRedirect(request.getContextPath() + "/userListServlet");
+            //添加成功，跳转到最后一页给予展示
+            response.sendRedirect(request.getContextPath() + "/findUserByPageServlet?findPage="+new UserServiceImpl().findUserByPage(null,null).getTotalPage());
         } else {
             // 添加失败,跳转到添加页面
             response.sendRedirect(request.getContextPath()+"/add.jsp");

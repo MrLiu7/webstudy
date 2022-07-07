@@ -33,7 +33,7 @@ public class updateUserServlet extends HttpServlet {
         boolean success = new UserServiceImpl().updateUser(user);
         if (success) {
             // 更新成功，重定向到全部显示
-            response.sendRedirect(request.getContextPath() + "/userListServlet");
+            response.sendRedirect(request.getContextPath() + "/findUserByPageServlet");
         } else {
             // 失败，转发到更改界面
             // 先共享user

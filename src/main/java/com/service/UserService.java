@@ -1,5 +1,6 @@
 package com.service;
 
+import com.domain.PageBean;
 import com.domain.User;
 
 import java.util.List;
@@ -57,4 +58,6 @@ public interface UserService {
      * @param userIds 用户的id字符串形式数组
      */
     void deleteUsers(String[] userIds);
+
+    PageBean<User> findUserByPage(String findPage,String rows);
 }

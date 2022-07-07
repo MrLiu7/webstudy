@@ -2,6 +2,7 @@ package com.service.impl;
 
 import com.dao.UserDao;
 import com.dao.impl.UserDaoImpl;
+import com.domain.PageBean;
 import com.domain.User;
 import com.service.UserService;
 
@@ -57,5 +58,35 @@ public class UserServiceImpl implements UserService {
             // 调用dao的删除操作
             dao.deleteUserByID(Integer.parseInt(userId));
         }
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param _findPage 待查询的页码
+     * @param _rows     每页显示的条数
+     * @return 返回封装的数据对象
+     */
+    @Override
+    public PageBean<User> findUserByPage(String _findPage, String _rows) {
+        // 转化数据
+        int findPage = (_findPage == null || "".equals(_findPage)) ? 1 : Integer.parseInt(_findPage);
+        int rows = (_rows == null || "".equals(_rows)) ? 10 : Integer.parseInt(_rows);
+        // 查询总记录
+        int allRecord = dao.findAllRecord();
+        // 计算总页码
+        int pageCount = allRecord % rows == 0 ? allRecord / rows : allRecord / rows + 1;
+        // 移除非法数据
+        if (findPage < 1) {
+            findPage = 1;
+        } else if (findPage > pageCount) {
+            findPage = pageCount;
+        }
+        // 开始查询的数据下标
+        int start = (findPage - 1) * rows;
+        // 查询数据
+        List<User> list = dao.findUserByPage(start, rows);
+        // 总记录条数 总页码 当前页面 每页条数 数据集合
+        return new PageBean<>(allRecord, pageCount, findPage, rows, list);
     }
 }

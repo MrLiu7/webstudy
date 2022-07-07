@@ -37,7 +37,7 @@ public class AddUserByComputer {
                 "飞浅、鉴合、恭满、刊何、潜泉、里博、高谦、风商、健奉、苑棕、祥孝、云哲、治致、唯弘、磊城、柏业、烈欧、杰冰、羽龙、轩健、龙霖、" +
                 "钟钧、年奋、忆飘、峰理、雷腾、铁卫、绩荣、乐攀、余秋、琢新、临诗、耀闲、浪天、欢琪、宸幽、聚均、挚宏、棋腾、永庆、敬深、陌宏、" +
                 "运渊、闲煜、毅煜、浚明、生栋、妙全、疏奇、物观、常攀、桐戈、千傲、峰复、睿帅、淡泉、闲翔、云古、秉哲、境翱、朋材、信熙、勉丰、" +
-                "散蓝、浦文、卡神、谨壤、星曲、量叶、彬净、振田、安征、良年、飘吉、韬胜、池润、章鸽";
+                "散蓝、浦文、卡神、谨壤、星曲、量叶、彬净、振田、安征、良年、飘吉、韬胜、池润、章鸽、俊杰";
         // 获取名的集合
         List<String> nameList = new ArrayList<>(Arrays.asList(names.split("、")));
         int nameLen = nameList.size();
@@ -53,8 +53,8 @@ public class AddUserByComputer {
         // 处理性别
         String[] sex = {"男", "女"};
 
-        // 向服务器添加5000条数据
-        for (int i = 0; i < 100; i++) {
+        // 向服务器添加指定条数据
+        for (int i = 0; i < 100000; i++) {
             String userName = surname.charAt(random.nextInt(surnameLen)) + nameList.get(random.nextInt(nameLen));
             String qq = getQq();
             String email = qq + "@163.com";

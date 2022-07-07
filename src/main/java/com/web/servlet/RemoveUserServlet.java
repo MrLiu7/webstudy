@@ -17,6 +17,6 @@ public class RemoveUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean success = new UserServiceImpl().deleteUser(request.getParameter("id"));
-        request.getRequestDispatcher("/userListServlet").forward(request, response);
+        request.getRequestDispatcher("/findUserByPageServlet").forward(request, response);
     }
 }

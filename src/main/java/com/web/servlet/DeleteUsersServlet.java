@@ -21,6 +21,6 @@ public class DeleteUsersServlet extends HttpServlet {
         // 将这些id数值提交到service中进行处理
         new UserServiceImpl().deleteUsers(userIds);
         // 转发到查询所有数据的servlet
-        request.getRequestDispatcher("/userListServlet").forward(request, response);
+        request.getRequestDispatcher("/findUserByPageServlet").forward(request, response);
     }
 }

@@ -20,4 +20,10 @@ public interface UserDao {
     User findUserByID(int id);
 
     int updateUser(User user);
+
+    List<User> findUserByPage(int start, int rows);
+
+    int findAllRecord();
+
+    List<User> vagueFindUserByPage(String name, String address, String email, int start, int rows);
 }
